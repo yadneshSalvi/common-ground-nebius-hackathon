@@ -1,0 +1,11 @@
+{
+  "valid": true,
+  "signed_messages": 17,
+  "proposals": 3,
+  "approvals": 9,
+  "model_attempts": 4,
+  "scope": "Historical signature/hash/assignment integrity; current authority and real-world outcomes require fresh owner observation.",
+  "content_sha256": "d89409fe3a524bdad84a92c6adb27b2e8243f8f8356f40d088c95d426dda5e8e",
+  "state": "ACTIVE",
+  "proof": "sample-proof.json"
+}

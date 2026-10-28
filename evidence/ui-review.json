@@ -1,0 +1,122 @@
+{
+  "kind": "Read-only production UI review; no protocol mutations",
+  "checks": [
+    "broker: paired with the real service; fragment cleared",
+    "asha: paired with the real service; fragment cleared",
+    "ravi: paired with the real service; fragment cleared",
+    "leena: paired with the real service; fragment cleared",
+    "asha: inline withdrawal review receives focus and Cancel restores its trigger; no withdrawal was submitted",
+    "leena: inline withdrawal review receives focus and Cancel restores its trigger; no withdrawal was submitted",
+    "View navigation resets scroll and focuses the selected heading",
+    "200% CSS zoom: agreement controls remain in layout without page overflow (native browser zoom requires manual review)",
+    "An already paired owner reopens without a pairing secret in the broker link",
+    "Cancellation dialog closes on Escape and restores its trigger; no cancellation was submitted",
+    "Labeled read-only network failure fixture recovered without losing an unsaved local preference draft; nothing was saved",
+    "No cookies and no browser runtime errors"
+  ],
+  "views": [
+    {
+      "label": "agreement",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "agreement",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "agreement",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "agreement",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "agreement",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "sharing",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "sharing-text",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "evidence",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "asha-decision",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "asha-preferences",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "asha-calendar",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "ravi-decision",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "ravi-preferences",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "ravi-calendar",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "leena-decision",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "leena-preferences",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "leena-calendar",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "errors": []
+}

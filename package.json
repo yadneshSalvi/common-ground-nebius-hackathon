@@ -1,0 +1,36 @@
+{
+  "name": "common-ground",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:web": "vite --host 127.0.0.1 --port 4301 --strictPort",
+    "build": "npm run typecheck && vite build && vite build --config vite.owner.config.ts",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview --host 127.0.0.1 --port 4301 --strictPort",
+    "test:ui": "node web/qa.mjs",
+    "start": ".venv/bin/python scripts/run.py",
+    "test": ".venv/bin/python -m pytest -q",
+    "format": "prettier --write web owner-web public/assets-manifest.json package.json tsconfig.json vite.config.ts vite.owner.config.ts",
+    "format:check": "prettier --check web owner-web public/assets-manifest.json package.json tsconfig.json vite.config.ts vite.owner.config.ts",
+    "test:live": ".venv/bin/python scripts/live_validation.py"
+  },
+  "dependencies": {
+    "@fontsource/fraunces": "5.3.0",
+    "@fontsource/source-sans-3": "5.3.1",
+    "lucide-react": "0.548.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.11.1",
+    "@playwright/test": "1.64.1",
+    "@types/node": "22.18.12",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.1.0",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  }
+}

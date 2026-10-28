@@ -1,0 +1,71 @@
+{
+  "scope": "Actual model attempts in main and explicit isolated validation stores; unit-test mocked transports excluded.",
+  "attempts": 4,
+  "known_input_tokens": 6389,
+  "known_output_tokens": 12966,
+  "unknown_usage_attempts": 0,
+  "estimated_cost_usd": "0.0349518",
+  "nebius_development_attempts": 0,
+  "receipts": [
+    {
+      "source": "main",
+      "receipt_id": "model-ebe4e8f290654eefa5e2db1f4371b35d",
+      "provider": "Fireworks",
+      "model": "accounts/fireworks/models/nemotron-3-ultra-nvfp4",
+      "status": "FAILED",
+      "prompt_revision": "common-ground-offer-planner-v1",
+      "usage": {
+        "input_tokens": 1423,
+        "output_tokens": 2755,
+        "total_tokens": 4178
+      },
+      "estimated_cost_usd": 0.0074658,
+      "latency_ms": 14440
+    },
+    {
+      "source": "main",
+      "receipt_id": "model-41cf804fbbd3488bbcd6e25c00be591f",
+      "provider": "Fireworks",
+      "model": "accounts/fireworks/models/nemotron-3-ultra-nvfp4",
+      "status": "SUCCEEDED",
+      "prompt_revision": "common-ground-offer-planner-v2",
+      "usage": {
+        "input_tokens": 1590,
+        "output_tokens": 2962,
+        "total_tokens": 4552
+      },
+      "estimated_cost_usd": 0.0080628,
+      "latency_ms": 16444
+    },
+    {
+      "source": "main",
+      "receipt_id": "model-7bd6db570e44444f909a9a67895c5511",
+      "provider": "Fireworks",
+      "model": "accounts/fireworks/models/nemotron-3-ultra-nvfp4",
+      "status": "SUCCEEDED",
+      "prompt_revision": "common-ground-offer-planner-v3",
+      "usage": {
+        "input_tokens": 1688,
+        "output_tokens": 3313,
+        "total_tokens": 5001
+      },
+      "estimated_cost_usd": 0.008964,
+      "latency_ms": 19905
+    },
+    {
+      "source": "main",
+      "receipt_id": "model-51561873cd97450f950b14d5586b7d91",
+      "provider": "Fireworks",
+      "model": "accounts/fireworks/models/nemotron-3-ultra-nvfp4",
+      "status": "SUCCEEDED",
+      "prompt_revision": "common-ground-offer-planner-v3",
+      "usage": {
+        "input_tokens": 1688,
+        "output_tokens": 3936,
+        "total_tokens": 5624
+      },
+      "estimated_cost_usd": 0.0104592,
+      "latency_ms": 21147
+    }
+  ]
+}

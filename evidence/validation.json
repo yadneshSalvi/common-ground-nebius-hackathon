@@ -1,0 +1,55 @@
+{
+  "kind": "Authored local development validation; no participant study",
+  "timestamp": "2026-10-28T13:18:23.117723+05:30",
+  "backend": {
+    "command": "npm test",
+    "tests": 97,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 7.686,
+    "python": "3.11.6",
+    "modules": {
+      "tests.test_broker_integration": 14,
+      "tests.test_model_boundary": 4,
+      "tests.test_owner_services": 33,
+      "tests.test_protocol": 3,
+      "tests.test_solver_oracle": 43
+    },
+    "external_inference_calls": 0,
+    "warnings": [
+      "Pinned TestClient dependency emits httpx/anyio deprecation warnings; checks passed."
+    ]
+  },
+  "browser": {
+    "command": "npm run test:ui",
+    "scope": "Read-only production UI review; no protocol mutations",
+    "views": 17,
+    "axe_violations": 0,
+    "overflow_views": 0,
+    "runtime_errors": 0,
+    "metadata_file": "ui-review.json"
+  },
+  "build": {
+    "command": "npm run typecheck; vite build; vite build --config vite.owner.config.ts; npm run format:check",
+    "result": "passed",
+    "source": "Lead final verification into ignored alternative output directories; production files unchanged",
+    "production_identity": {
+      "broker": {
+        "files": 17,
+        "matches_production": true,
+        "differing_files": []
+      },
+      "owner": {
+        "files": 17,
+        "matches_production": true,
+        "differing_files": []
+      }
+    }
+  },
+  "limits": [
+    "Finite authored scenarios, not held-out households.",
+    "CSS zoom and automated axe do not replace native screen-reader or participant testing.",
+    "Live model receipts and independent calendar effects are in sample-proof.json."
+  ]
+}

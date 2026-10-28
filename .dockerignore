@@ -1,0 +1,11 @@
+.git
+.runtime
+.venv
+node_modules
+plans
+.env
+.env.*
+test-results
+playwright-report
+evidence/private
+__pycache__
