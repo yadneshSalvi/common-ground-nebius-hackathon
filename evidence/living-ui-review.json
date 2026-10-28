@@ -1,0 +1,227 @@
+{
+  "kind": "Authored local browser QA; no provider calls, external accounts or human study",
+  "views": [
+    {
+      "label": "entry",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "entry",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "entry",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "entry",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "entry",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "recorded",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "recorded",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "recorded",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "owner-entry",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "owner-entry",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "owner-entry",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "arrangement",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "arrangement",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "arrangement",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "goal",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "goal",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "record",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "asha-decisions",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "ravi-decisions",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "leena-decisions",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "missing-facts-review",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "missing-facts-review",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "uncovered",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "uncovered",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "conditional-release",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "amendment",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "amendment",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "repaired",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "repaired",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "repaired",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "memory",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "calendar",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "label": "historical-expired",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "checks": [
+    "Public entry exposes fictional circle and recorded legacy access without owner credentials",
+    "Original recorded evidence is readable with no session; separate owner entry is responsive",
+    "Real fictional session and sample API populate arrangement; graph form and portable record reachable",
+    "All three owner carry-forward policies are off; any prior authored policy was explicitly revoked through its owner UI",
+    "Local structured review exposes complete editable graph and routes; missing dates, durations and time windows remain blank; confirmation requires explicit review",
+    "Actual local authored flow: Ravi withdrew only return; Leena released the Asha-by-16:15 condition; owners gave exact review; persisted amendment requested one insert and one delete; pickup event ID and ETag unchanged",
+    "Owner-local memory created, corrected and deleted through UI; authored private note absent from broker evidence",
+    "Injected browser session-expiry response retains historical timeline and stops unauthenticated polling"
+  ],
+  "errors": [],
+  "originalPickup": {
+    "event_id": "cg22550988d06b7b0658f8f9451e2768a225a8f8a41",
+    "etag": "\"e31764c9e249b9559196a3049a306c55ff663576747bcf5b\"",
+    "agreement_id": "agreement-37c60c621427429384388b34ea4fbe8c",
+    "revision": 1
+  },
+  "retainedPickup": {
+    "event_id": "cg22550988d06b7b0658f8f9451e2768a225a8f8a41",
+    "etag": "\"e31764c9e249b9559196a3049a306c55ff663576747bcf5b\"",
+    "agreement_id": "agreement-37c60c621427429384388b34ea4fbe8c",
+    "revision": 2
+  },
+  "scope_note": "Authored automated full flow; final request-label/filter and current-authority changes receive separate final in-app-browser acceptance."
+}

@@ -1,0 +1,95 @@
+{
+  "scope": "Actual IAB-downloaded proof and verifier, copied outside repository into fresh venv; only cryptography50.0.2/rfc8785 0.1.4 installed; sanitized subprocess environment; no project imports, API credentials or runtime databases",
+  "proof_sha256": "1e0ebbefef6004562613b9114288cf054dca5bea74e34d2bea35cc4bdd55720a",
+  "verifier_sha256": "5ae14856edf5d3e2235e9dd1f1bd34f5d6ae4e5f610273215d828c49cc2c96ea",
+  "results": [
+    {
+      "case": "untouched",
+      "outer_digest_recomputed": true,
+      "exit_code": 0,
+      "valid": true,
+      "agreements": 6,
+      "signed_messages": 36,
+      "signed_observations": 9,
+      "model_attempts": 2,
+      "limits": [
+        "Historical integrity and owner-key evidence at the exported observation time; verify owner identity independently",
+        "A copied snapshot cannot prove that no later event was omitted, or authorize present execution",
+        "No evidence of attendance, independently administered households, Google OAuth or human benefit"
+      ]
+    },
+    {
+      "case": "top-level-goal-title",
+      "outer_digest_recomputed": true,
+      "exit_code": 1,
+      "valid": false,
+      "errors": [
+        "Exported goal differs from the exact signed release"
+      ]
+    },
+    {
+      "case": "changed-handoff-counterpart",
+      "outer_digest_recomputed": true,
+      "exit_code": 1,
+      "valid": false,
+      "errors": [
+        "Changed or omitted handoff dependency/counterpart"
+      ]
+    },
+    {
+      "case": "forged-pickup-etag",
+      "outer_digest_recomputed": true,
+      "exit_code": 1,
+      "valid": false,
+      "errors": [
+        "Current receipt differs from the owning agreement\u2019s latest signed observation"
+      ]
+    },
+    {
+      "case": "missing-owning-current-observation",
+      "outer_digest_recomputed": true,
+      "exit_code": 1,
+      "valid": false,
+      "errors": [
+        "Current receipt has no observation by its owning signer/agreement"
+      ]
+    },
+    {
+      "case": "historical-verified-receipt-replay",
+      "outer_digest_recomputed": true,
+      "exit_code": 1,
+      "valid": false,
+      "errors": [
+        "Current receipt differs from the owning agreement\u2019s latest signed observation"
+      ]
+    },
+    {
+      "case": "stale-owner-head",
+      "outer_digest_recomputed": true,
+      "exit_code": 1,
+      "valid": false,
+      "errors": [
+        "A newer signed observation supersedes this exported head"
+      ]
+    },
+    {
+      "case": "forged-observed-time",
+      "outer_digest_recomputed": true,
+      "exit_code": 1,
+      "valid": false,
+      "errors": [
+        "Current observation time is not the signed observation floor"
+      ]
+    },
+    {
+      "case": "forged-current-revision",
+      "outer_digest_recomputed": true,
+      "exit_code": 1,
+      "valid": false,
+      "errors": [
+        "Invalid current/pending agreement reference"
+      ]
+    }
+  ],
+  "all_passed": true
+}

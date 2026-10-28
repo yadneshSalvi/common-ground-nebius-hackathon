@@ -44,7 +44,15 @@ class OwnerEngine:
         self.config = config
         self.owner_id = config["owner_id"]
         if self.owner_id not in PROFILES:
-            raise ValueError("Unknown authored owner")
+            profile = config.get("owner_profile")
+            if not isinstance(profile, dict) or not isinstance(profile.get("name"), str) or not profile["name"] or not isinstance(profile.get("capabilities"), list) or not profile["capabilities"]:
+                raise ValueError("A registered v2 owner requires an explicit name and capabilities in owner_profile")
+            if not set(profile["capabilities"]) <= {"preparation", "driving", "accompaniment", "handoff", "meal", "visit"}:
+                raise ValueError("Unknown configured owner capability")
+            registered = config.get("registered_owners", [])
+            if not isinstance(registered, list) or not 2 <= len(registered) <= 6 or len(set(registered)) != len(registered) or self.owner_id not in registered:
+                raise ValueError("A v2 owner requires its exact registered circle of two to six owners")
+        self.profile = config.get("owner_profile") or PROFILES[self.owner_id]
         for key in ("pair_code", "service_token", "broker_ingest_token"):
             if not isinstance(config.get(key), str) or len(config[key]) < 20:
                 raise ValueError(f"{key} must be a random capability of at least 20 characters")
@@ -59,18 +67,37 @@ class OwnerEngine:
                 self.vault.write(db, self.seed())
 
     def seed(self):
+        if self.owner_id not in PROFILES:
+            # Generic v2 owners start without invented private facts. V1 remains
+            # the fixed authored legacy fixture and never authorizes this owner.
+            return {"consent_revision": 0, "constraint_revision": 1, "offer_revision": 0, "fence": 0,
+                    "release": None, "approvals": [], "fault": "none", "legacy_protocol": False,
+                    "preferences": {"availability_start": 0, "availability_end": 1440, "task_ids": [],
+                                    "ask_before_driving": True, "private_note": "", "revision": 1},
+                    "private_calendar": [], "skills": [], "corrections": [], "calendar_resolutions": []}
         profile = PROFILES[self.owner_id]
         return {"consent_revision": 0, "constraint_revision": 1, "offer_revision": 0, "fence": 0, "release": None, "approvals": [], "fault": "none", "preferences": {"availability_start": profile["start"], "availability_end": profile["end"], "task_ids": profile["tasks"], "ask_before_driving": self.owner_id == "ravi", "private_note": f"CG_PRIVATE_{self.owner_id.upper()}_NOTE_7D18: an authored personal reason that stays here.", "revision": 1, "preference_cost": 1 if self.owner_id == "ravi" else 0, "provenance": "Owner-confirmed fictional sample preference", "confidence": 1.0, "owner_confirmed": True, "scope": "appointment transport", "expires_at": None}, "private_calendar": [{"source_id": f"local-private-{self.owner_id}", "title": f"CG_PRIVATE_{self.owner_id.upper()}_CALENDAR_2E93", "start": profile["conflict"][0], "end": profile["conflict"][1], "date": "2026-11-02", "timezone": "Asia/Kolkata"}], "skills": [{"skill_id": "appointment-with-handoff", "name": "Appointment transport with a confirmed handoff", "version": 1, "scope": "Administrative appointment coordination only", "allowed_tools": ["local-calendar"], "required_approvals": ["exact proposal and calendar action manifest"], "completion_checks": ["Each calendar effect independently read and verified", "Handoff has an assigned owner"], "owner_confirmed": True, "provenance": "Authored sample skill, confirmed in this private owner vault", "confidence": 1.0, "expires_at": None}], "corrections": [], "calendar_resolutions": []}
+
+    @property
+    def living(self):
+        # Keep the legacy protocol and calendar independent of the v2 runtime.
+        if not hasattr(self, "_living"):
+            with self.lock:
+                if not hasattr(self, "_living"):
+                    from owner_agent.living import LivingOwner
+                    self._living = LivingOwner(self)
+        return self._living
 
     @property
     def origin(self):
         return self.config.get("origin", f"http://127.0.0.1:{self.config['port']}")
 
     def owner(self):
-        return {**OWNER_INFO[self.owner_id], "owner_id": self.owner_id, "port": self.config["port"], "url": self.origin, "key_id": self.identity["key_id"], "public_key": self.identity["public_key"]}
+        info = OWNER_INFO.get(self.owner_id, {"id": self.owner_id, "name": self.profile["name"], "initials": self.profile.get("initials", self.profile["name"][:2].upper()), "role": self.profile.get("role", "Registered owner"), "accent": self.profile.get("accent", "slate")})
+        return {**info, "owner_id": self.owner_id, "port": self.config["port"], "url": self.origin, "key_id": self.identity["key_id"], "public_key": self.identity["public_key"]}
 
     def meta(self):
-        return {"owner_id": self.owner_id, "name": PROFILES[self.owner_id]["name"], "port": self.config["port"], "public_key": self.identity["public_key"], "key_id": self.identity["key_id"], "revoked": self.identity["key_id"] in self.config.get("revoked_keys", [])}
+        return {"owner_id": self.owner_id, "name": self.profile["name"], "port": self.config["port"], "public_key": self.identity["public_key"], "key_id": self.identity["key_id"], "revoked": self.identity["key_id"] in self.config.get("revoked_keys", [])}
 
     def broker(self, method: str, route: str, payload=None):
         try:
@@ -95,11 +122,13 @@ class OwnerEngine:
                     db.execute("UPDATE outbox SET delivered=1 WHERE message_id=?", (row["message_id"],))
 
     def signed(self, kind: str, payload: dict, revision: int, allow_inference=False, ttl=14400):
+        require(self.owner_id in PROFILES, "The authored legacy appointment protocol is unavailable for this v2 owner.", 404)
         validate_payload(kind, payload)
         audience = [BROKER, *HUMANS] + (["fireworks"] if allow_inference else [])
         return sign_message(self.identity["private_key"], envelope(self.owner_id, self.identity["key_id"], kind, payload, revision, audience, ttl))
 
     def preview(self, allow_inference: bool, state=None):
+        require(self.owner_id in PROFILES, "The authored legacy appointment protocol is unavailable for this v2 owner.", 404)
         state = state or self.vault.read()
         p = state["preferences"]
         current = state["release"]

@@ -1,0 +1,172 @@
+{
+  "recorded_at": "2026-10-28T15:51:23.542456+00:00",
+  "profile": "cg-living",
+  "image_id": "sha256:158a05622c008015fa67d4bd028600acb032d2caba5134efc4cdbec327c46f9c",
+  "scope": "Actual local container/process/network checks; authored development evidence, one host administrator, no kernel escape audit or independent households.",
+  "services": {
+    "broker": {
+      "runtime": {
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_privilege_escalation": true,
+        "not_privileged": true,
+        "no_host_mount": true,
+        "only_two_own_mounts": true,
+        "config_mount_readonly": true,
+        "expected_networks": true,
+        "bounded_memory_pids": true,
+        "loopback_published_ports": true
+      },
+      "actual_process_checks": {
+        "unprivileged_uid": true,
+        "read_only_config": true,
+        "broker_provider_file_present": true,
+        "host_repository_absent": true,
+        "docker_socket_absent": true,
+        "asha_service_cannot_read_private_api": true,
+        "asha_pairing_not_in_broker_config": true,
+        "ravi_service_cannot_read_private_api": true,
+        "ravi_pairing_not_in_broker_config": true,
+        "leena_service_cannot_read_private_api": true,
+        "leena_pairing_not_in_broker_config": true
+      },
+      "passed": true
+    },
+    "asha": {
+      "runtime": {
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_privilege_escalation": true,
+        "not_privileged": true,
+        "no_host_mount": true,
+        "only_two_own_mounts": true,
+        "config_mount_readonly": true,
+        "expected_networks": true,
+        "bounded_memory_pids": true,
+        "loopback_published_ports": true
+      },
+      "actual_process_checks": {
+        "unprivileged_uid": true,
+        "read_only_config": true,
+        "own_data_writable": true,
+        "provider_file_absent": true,
+        "host_repository_absent": true,
+        "docker_socket_absent": true,
+        "no_provider_env": true,
+        "config_has_no_other_owner_registry": true,
+        "cannot_resolve_ravi": true,
+        "cannot_resolve_leena": true,
+        "no_public_tcp_egress": true
+      },
+      "passed": true
+    },
+    "ravi": {
+      "runtime": {
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_privilege_escalation": true,
+        "not_privileged": true,
+        "no_host_mount": true,
+        "only_two_own_mounts": true,
+        "config_mount_readonly": true,
+        "expected_networks": true,
+        "bounded_memory_pids": true,
+        "loopback_published_ports": true
+      },
+      "actual_process_checks": {
+        "unprivileged_uid": true,
+        "read_only_config": true,
+        "own_data_writable": true,
+        "provider_file_absent": true,
+        "host_repository_absent": true,
+        "docker_socket_absent": true,
+        "no_provider_env": true,
+        "config_has_no_other_owner_registry": true,
+        "cannot_resolve_asha": true,
+        "cannot_resolve_leena": true,
+        "no_public_tcp_egress": true
+      },
+      "passed": true
+    },
+    "leena": {
+      "runtime": {
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_privilege_escalation": true,
+        "not_privileged": true,
+        "no_host_mount": true,
+        "only_two_own_mounts": true,
+        "config_mount_readonly": true,
+        "expected_networks": true,
+        "bounded_memory_pids": true,
+        "loopback_published_ports": true
+      },
+      "actual_process_checks": {
+        "unprivileged_uid": true,
+        "read_only_config": true,
+        "own_data_writable": true,
+        "provider_file_absent": true,
+        "host_repository_absent": true,
+        "docker_socket_absent": true,
+        "no_provider_env": true,
+        "config_has_no_other_owner_registry": true,
+        "cannot_resolve_asha": true,
+        "cannot_resolve_ravi": true,
+        "no_public_tcp_egress": true
+      },
+      "passed": true
+    }
+  },
+  "ingresses": {
+    "asha": {
+      "checks": {
+        "no_volumes": true,
+        "unprivileged": true,
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_privilege_escalation": true,
+        "only_own_networks": true,
+        "fixed_owner_command": true,
+        "loopback_published_ports": true,
+        "absolute_upstream_rejected": true,
+        "connect_tunnel_rejected": true,
+        "oversized_body_rejected": true
+      },
+      "passed": true
+    },
+    "ravi": {
+      "checks": {
+        "no_volumes": true,
+        "unprivileged": true,
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_privilege_escalation": true,
+        "only_own_networks": true,
+        "fixed_owner_command": true,
+        "loopback_published_ports": true,
+        "absolute_upstream_rejected": true,
+        "connect_tunnel_rejected": true,
+        "oversized_body_rejected": true
+      },
+      "passed": true
+    },
+    "leena": {
+      "checks": {
+        "no_volumes": true,
+        "unprivileged": true,
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_privilege_escalation": true,
+        "only_own_networks": true,
+        "fixed_owner_command": true,
+        "loopback_published_ports": true,
+        "absolute_upstream_rejected": true,
+        "connect_tunnel_rejected": true,
+        "oversized_body_rejected": true
+      },
+      "passed": true
+    }
+  },
+  "disjoint_volumes": true,
+  "passed": true
+}

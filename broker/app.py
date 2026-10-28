@@ -60,7 +60,7 @@ def create_app(config=None):
                     raise BrokerError("An exact shared-room Origin is required for mutations.", 403)
                 if not (path == "/api/session" and request.method == "POST") and request.method != "OPTIONS":
                     engine.authenticate(authorization[7:] if authorization.startswith("Bearer ") else "")
-            if path.startswith("/v1/"):
+            if path.startswith(("/v1/", "/v2/")):
                 if supplied_origin is not None or not hmac.compare_digest(authorization, "Bearer " + engine.config["broker_ingest_token"]):
                     raise BrokerError("Owner-service authority is required for this protocol route.", 403)
             response = await call_next(request)
@@ -146,4 +146,6 @@ def create_app(config=None):
 
     if engine.config.get("bootstrap_members", True):
         engine.bootstrap_members()
+    from broker.living_routes import mount_living_routes
+    mount_living_routes(app, engine)
     return app

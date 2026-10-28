@@ -17,23 +17,26 @@ def save_private(path, value):
     path.write_text(json.dumps(value, indent=2))
     path.chmod(0o600)
 
-def provision(runtime=None):
+def provision(runtime=None, *, fictional_sample=False):
     runtime = Path(runtime or ROOT / ".runtime").resolve()
     runtime.mkdir(parents=True, exist_ok=True, mode=0o700)
     runtime.chmod(0o700)
     config_path = runtime / "config.json"
     if config_path.exists():
+        existing = json.loads(config_path.read_text())
+        if fictional_sample and existing.get("fictional_sample") is not True:
+            raise ValueError("Existing runtime is not a fictional sample. Choose a new --runtime directory; no historical store was changed.")
         return config_path
     ingest, coordinator_pair = secrets.token_urlsafe(40), secrets.token_urlsafe(32)
     peers, links = [], {"broker": "http://127.0.0.1:4301/#pair=" + coordinator_pair}
     for owner_id, port in (("asha", 4311), ("ravi", 4312), ("leena", 4313)):
         directory = runtime / "owners" / owner_id
         pairing, service = secrets.token_urlsafe(32), secrets.token_urlsafe(40)
-        config = {"owner_id": owner_id, "port": port, "broker_url": "http://127.0.0.1:4302", "broker_ingest_token": ingest, "service_token": service, "pair_code": pairing, "data_dir": str(directory), "dist_dir": str(ROOT / "dist" / "owner")}
+        config = {"owner_id": owner_id, "port": port, "broker_url": "http://127.0.0.1:4302", "broker_ingest_token": ingest, "service_token": service, "pair_code": pairing, "data_dir": str(directory), "dist_dir": str(ROOT / "dist" / "owner"), "fictional_sample": fictional_sample}
         save_private(directory / "config.json", config)
         peers.append({"id": owner_id, "url": f"http://127.0.0.1:{port}", "service_token": service})
         links[owner_id] = f"http://127.0.0.1:{port}/#pair=" + pairing
-    save_private(config_path, {"data_dir": str(runtime / "broker"), "origin": "http://127.0.0.1:4301", "pair_code": coordinator_pair, "broker_ingest_token": ingest, "owners": peers})
+    save_private(config_path, {"data_dir": str(runtime / "broker"), "origin": "http://127.0.0.1:4301", "pair_code": coordinator_pair, "broker_ingest_token": ingest, "owners": peers, "fictional_sample": fictional_sample})
     save_private(runtime / "pairing-links.json", links)
     return config_path
 
@@ -53,9 +56,12 @@ def wait_ready(url, process):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--provision-only", action="store_true")
+    parser.add_argument("--runtime", type=Path, default=ROOT / ".runtime")
+    parser.add_argument("--fictional-sample", action="store_true", help="Explicitly enable fictional sample entry in a NEW runtime")
     args = parser.parse_args()
-    config = provision()
-    print("Private launch links: " + str(ROOT / ".runtime" / "pairing-links.json"), flush=True)
+    runtime = args.runtime.resolve()
+    config = provision(runtime, fictional_sample=args.fictional_sample)
+    print("Private launch links: " + str(runtime / "pairing-links.json"), flush=True)
     print("Pair each owner once. The shared room never receives owner pairing codes.", flush=True)
     if args.provision_only:
         return
@@ -79,7 +85,7 @@ def main():
     signal.signal(signal.SIGINT, lambda *args: (stop(), sys.exit(0)))
     try:
         for owner_id, port in (("asha", 4311), ("ravi", 4312), ("leena", 4313)):
-            process = subprocess.Popen([sys.executable, "-m", "owner_agent", "--config", str(ROOT / ".runtime" / "owners" / owner_id / "config.json")], cwd=ROOT)
+            process = subprocess.Popen([sys.executable, "-m", "owner_agent", "--config", str(runtime / "owners" / owner_id / "config.json")], cwd=ROOT)
             children.append(process)
             wait_ready(f"http://127.0.0.1:{port}/health", process)
         process = subprocess.Popen([sys.executable, "-m", "broker", "--config", str(config)], cwd=ROOT)

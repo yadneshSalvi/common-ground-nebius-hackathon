@@ -1,5 +1,7 @@
 # Protocol and threat model
 
+This document describes the retained **legacy v1** workflow and ordinary-process launcher. The current generalized living agreements use the [v2 contract](LIVING_CONTRACT.md), [container boundaries](isolated-runtime.md), and [calendar adapters](calendar-adapters.md). Legacy signatures, fixed task facts and the historical Fireworks-only route do not authorize v2 work.
+
 ## Local boundaries
 
 The shared React build is served on 4301 and the broker API on 4302. Asha 4311, Ravi 4312 and Leena 4313 each serve a separately built private client and own an encrypted preference vault, Ed25519 key, sessions, durable reservations/action intents and independent calendar SQLite database. The broker has a different database holding released protocol data. Its config contains only narrow owner coordination capabilities, public service URLs and its own interactive pairing secret.

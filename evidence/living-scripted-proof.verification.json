@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-10-28T15:43:15.929097Z",
+  "method": "Copied verifier and proof to a temporary directory outside the checkout; Python -I, empty environment; no keys, DB, project imports or network",
+  "verifier_sha256": "5ae14856edf5d3e2235e9dd1f1bd34f5d6ae4e5f610273215d828c49cc2c96ea",
+  "proof_digest": "9e6569714d15b4bdd69e968e8ad41281dd4e337ec6ab3bb344aeedd3b5fd7e42",
+  "results": {
+    "positive": {
+      "valid": true,
+      "agreements": 3,
+      "signed_messages": 15,
+      "signed_observations": 5,
+      "model_attempts": 4,
+      "limits": [
+        "Historical integrity and owner-key evidence at the exported observation time; verify owner identity independently",
+        "A copied snapshot cannot prove that no later event was omitted, or authorize present execution",
+        "No evidence of attendance, independently administered households, Google OAuth or human benefit"
+      ]
+    },
+    "goal": {
+      "valid": false,
+      "errors": [
+        "Exported goal differs from the exact signed release"
+      ]
+    },
+    "dependency": {
+      "valid": false,
+      "errors": [
+        "Changed or omitted handoff dependency/counterpart"
+      ]
+    },
+    "receipt": {
+      "valid": false,
+      "errors": [
+        "Current receipt differs from the owning agreement\u2019s latest signed observation"
+      ]
+    }
+  }
+}

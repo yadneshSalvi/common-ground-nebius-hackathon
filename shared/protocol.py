@@ -23,6 +23,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey,
 
 BODY_KEYS = {"type", "schema_version", "message_id", "issuer", "audience", "circle_id", "issued_at", "expires_at", "nonce", "key_id", "consent_revision", "payload"}
 MESSAGE_TYPES = {"ReleaseGrant", "Approval", "Withdrawal"}
+LIVING_MESSAGE_TYPES = {"LivingRelease", "LivingConsent", "LivingWithdrawal", "LivingRefusal", "LivingObservation"}
 
 
 def canonical(value: Any) -> bytes:
@@ -90,7 +91,8 @@ def _public(value: Any) -> Ed25519PublicKey:
 def _validate_body(body: Any, now: str | datetime | None = None) -> None:
     if not isinstance(body, dict) or set(body) != BODY_KEYS:
         raise ValueError("Invalid signed envelope fields")
-    if body["type"] not in MESSAGE_TYPES or type(body["schema_version"]) is not int or body["schema_version"] != 1:
+    version = body["schema_version"]
+    if type(version) is not int or not ((version == 1 and body["type"] in MESSAGE_TYPES) or (version == 2 and body["type"] in LIVING_MESSAGE_TYPES)):
         raise ValueError("Unsupported message type or schema version")
     for field in ("message_id", "issuer", "circle_id", "nonce", "key_id"):
         if not isinstance(body[field], str) or not 1 <= len(body[field]) <= 200:
@@ -169,7 +171,8 @@ def new_identity(path: str | Path, owner_id: str) -> dict:
     return {"private_key": private, "public_key": derived, "key_id": content["key_id"]}
 
 
-def envelope(owner_id: str, key_id: str, message_type: str, payload: dict, consent_revision: int, audience: list[str], ttl: int = 3600) -> dict:
-    body = {"type": message_type, "schema_version": 1, "message_id": str(uuid.uuid4()), "issuer": owner_id, "audience": audience, "circle_id": "dev-circle", "issued_at": utc_now(), "expires_at": expires_in(ttl), "nonce": secrets.token_urlsafe(24), "key_id": key_id, "consent_revision": consent_revision, "payload": payload}
+def envelope(owner_id: str, key_id: str, message_type: str, payload: dict, consent_revision: int, audience: list[str], ttl: int = 3600, *, schema_version: int | None = None, circle_id: str = "dev-circle") -> dict:
+    version = schema_version if schema_version is not None else (2 if message_type in LIVING_MESSAGE_TYPES else 1)
+    body = {"type": message_type, "schema_version": version, "message_id": str(uuid.uuid4()), "issuer": owner_id, "audience": audience, "circle_id": circle_id, "issued_at": utc_now(), "expires_at": expires_in(ttl), "nonce": secrets.token_urlsafe(24), "key_id": key_id, "consent_revision": consent_revision, "payload": payload}
     _validate_body(body)
     return body

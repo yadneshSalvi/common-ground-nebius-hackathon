@@ -26,5 +26,10 @@
     "version": "0.548.0",
     "license": "ISC; MIT for portions derived from Feather (full notices preserved)",
     "license_file": "licenses/lucide-ISC.txt"
+  },
+  "living_mark": {
+    "name": "Flower2",
+    "origin": "Lucide icon, used for the living arrangement interface",
+    "license_file": "licenses/lucide-ISC.txt"
   }
 }

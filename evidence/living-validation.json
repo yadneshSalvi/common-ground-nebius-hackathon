@@ -1,0 +1,174 @@
+{
+  "format": "common-ground.living-validation/v2",
+  "generated_at": "2026-10-28T15:56:18.286767Z",
+  "kind": "Authored local development validation; zero independent human participants or Google account qualification",
+  "acceptance": "PASSED_LOCAL_ONLY",
+  "offline": {
+    "command": "npm test",
+    "passed": 182,
+    "failed": 0,
+    "seconds": 22.41,
+    "scope": "97 preserved baseline tests plus 85 generalized-contract, owner, integration, provider, calendar and runtime tests",
+    "external_provider_calls": 0,
+    "warnings": [
+      "Pinned FastAPI TestClient dependencies emit httpx/anyio deprecation warnings."
+    ],
+    "final_regressions": [
+      "Memory add/correct/delete/restart retains monotonic offer revisions",
+      "Corrected private scope releases successfully and repairs an active agreement through exact consent and selective writes"
+    ]
+  },
+  "build": {
+    "commands": [
+      "npm run build",
+      "npm run format:check"
+    ],
+    "result": "PASSED",
+    "reported_by": "Frontend worker after final request filters and human labels"
+  },
+  "authored_browser": {
+    "views": 33,
+    "overflow_views": 0,
+    "axe_violations": 0,
+    "runtime_errors": 0,
+    "pickup_identity_preserved": true,
+    "report": "living-ui-review.json",
+    "scope_note": "Authored automated full flow; final request-label/filter and current-authority changes receive separate final in-app-browser acceptance."
+  },
+  "authored_no_model_baseline": {
+    "assigned": 180,
+    "partitions": {
+      "development": 60,
+      "authored-validation": 120
+    },
+    "results": {
+      "PASS": 180
+    },
+    "globally_infeasible": 24,
+    "information_limited": 30,
+    "corpus_digest": "088a5f535cb0310827b91ba90e67b691441222340b69830fa1ab848c3245fa0f",
+    "limits": [
+      "Shared authored generator; no independent or sealed held-out claim",
+      "Fixed exact intervals; does not cover every flexible-time assignment",
+      "Oracle full offers are evaluation-only and never sent to any provider",
+      "No measured model advantage, human time saving, calendar fault or household outcome claim"
+    ]
+  },
+  "actual_providers": {
+    "ledger": "living-provider-usage.json",
+    "summary": {
+      "fireworks": {
+        "attempts": 11,
+        "statuses": {
+          "SUCCEEDED": 11
+        },
+        "known_input_tokens": 46042,
+        "known_output_tokens": 17458,
+        "unknown_usage_attempts": 0,
+        "known_estimated_cost_usd": "0.0695244"
+      },
+      "nebius": {
+        "attempts": 8,
+        "statuses": {
+          "SUCCEEDED": 7,
+          "FAILED": 1
+        },
+        "known_input_tokens": 40403,
+        "known_output_tokens": 15799,
+        "unknown_usage_attempts": 0,
+        "known_estimated_cost_usd": "0.087800"
+      }
+    },
+    "scripted_nebius": "PASSED",
+    "scripted_proof": "living-scripted-proof.json",
+    "scripted_owner_http": "In-process transport; real persistent local calendars",
+    "scripted_checks": [
+      "Permitted missing-return question without asking Asha to drive",
+      "Ravi return withdrawn while pickup persists",
+      "Leena conditional return with Asha receipt by 16:15",
+      "Fresh Asha handoff consent; fresh Ravi standing attestation under explicitly enabled same-recipient policy",
+      "One actual insert and one actual delete; pickup ID and ETag preserved",
+      "New two-owner three-task two-date goal parsed by actual Nebius, explicitly reviewed, then enacted"
+    ],
+    "failed_attempts_preserved": true,
+    "isolated_runtime_iab": "PASSED; two actual Nebius calls, all three exact owner reviews, selective verified repair, final restart preserved ACTIVE",
+    "runtime_proof": "living-iab-proof.json"
+  },
+  "standalone_proof": {
+    "script": "scripts/verify_living_evidence.py",
+    "outside_checkout": "PASSED: positive proof and rehashed goal/dependency/receipt negative controls",
+    "positive": "living-scripted-proof.verification.json",
+    "negative_controls": [
+      "Changed agreement goal",
+      "Changed top-level goal",
+      "Changed handoff counterpart",
+      "Tampered receipt ETag",
+      "Tampered signed observation",
+      "Historical VERIFIED receipt substituted for latest CANCELLED",
+      "Missing owning signer observation",
+      "Forged observed_at",
+      "Signed withdrawal relabelled ACTIVE",
+      "VERIFIED calendar with revoked owner authority",
+      "Superseded valid observation head replay"
+    ],
+    "independent_runtime_export": {
+      "status": "PASSED",
+      "proof": "living-iab-proof.json",
+      "verification": "living-iab-proof.verification.json",
+      "positive_controls": 1,
+      "rehashed_negative_controls": 8,
+      "reproduce": "Copy the fixed IAB proof as proof.json, scripts/verify_living_evidence.py and scripts/verify_living_root_controls.py to an outside directory; install only the pinned cryptography/rfc8785 dependencies and run the controls there.",
+      "verifier_sha256": "5ae14856edf5d3e2235e9dd1f1bd34f5d6ae4e5f610273215d828c49cc2c96ea",
+      "proof_sha256": "1e0ebbefef6004562613b9114288cf054dca5bea74e34d2bea35cc4bdd55720a"
+    }
+  },
+  "runtime_isolation": {
+    "report": "../docs/isolated-runtime-development-qa.json",
+    "final_image_review": "PASSED",
+    "boundary": "Actual separate unprivileged containers, stores and owner networks; one host administrator",
+    "image_id": "sha256:158a05622c008015fa67d4bd028600acb032d2caba5134efc4cdbec327c46f9c"
+  },
+  "google_calendar": {
+    "implemented": "Separate conditional/readback adapter",
+    "qualification": "Controlled HTTP semantics only; no live OAuth, account or calendar claimed"
+  },
+  "independent_in_app_browser": {
+    "status": "PASSED",
+    "report": "../docs/living-iab-development-qa.json",
+    "result": {
+      "revision": 2,
+      "status": "ACTIVE",
+      "calendar_inserts": 1,
+      "calendar_updates": 0,
+      "calendar_deletes": 1,
+      "pickup_event_id": "cg246f5ffaf48ef8cefadde5b645ee35ebff4b4251c",
+      "pickup_etag": "\"76718ebe0571151dde4b45a3b78cec5fbe31df38eca1932f\"",
+      "survived_restart": true,
+      "survived_final_corrected_restart": true
+    },
+    "standing_policies_enabled": false,
+    "root_model_calls": 2,
+    "screenshots": [
+      "../docs/screenshots/living/iab-active-nebius.png",
+      "../docs/screenshots/living/iab-asha-private-boundary.png",
+      "../docs/screenshots/living/iab-uncovered-return.png",
+      "../docs/screenshots/living/iab-final-overview.png"
+    ],
+    "scope": "Independent root agent operated actual in-app browser against isolated local services; fictional owners, no independent humans"
+  },
+  "limits": [
+    "All owners, goals and decisions are authored fiction; no interviews or human benefit study",
+    "The 60/120 planning partitions share an authored generator; not independently authored or sealed held-out evidence",
+    "Calendar effects do not establish physical attendance or completion",
+    "User-edited v2 calendar effects are preserved and require manual owner resolution; no automatic readoption",
+    "No deployment, push, submission, real external calendar or independent household administration",
+    "Historical signatures and snapshots do not authorize current execution or prove that later records were not omitted"
+  ],
+  "owner_approval_feedback": {
+    "status": "PASSED",
+    "checks": 7,
+    "provider_attempts": 0,
+    "report": "living-approval-ui-review.json",
+    "scope": "Narrow authored browser regression; real local owner API and signed consent; injected state/response changes; no root runtime or providers"
+  }
+}

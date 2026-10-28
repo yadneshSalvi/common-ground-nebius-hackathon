@@ -1,3 +1,5 @@
+import RecordedAgreement from "./RecordedAgreement";
+import LivingApp from "./LivingApp";
 import { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -1266,4 +1268,12 @@ function ReleasedIsland({
     </article>
   );
 }
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  new URLSearchParams(location.search).has("recorded") ? (
+    <RecordedAgreement />
+  ) : new URLSearchParams(location.search).has("legacy") ? (
+    <App />
+  ) : (
+    <LivingApp />
+  ),
+);

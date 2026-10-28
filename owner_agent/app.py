@@ -267,6 +267,11 @@ def create_app(config: dict | str | Path | None = None) -> FastAPI:
     def events(proposal_id: str | None = None):
         return {"owner_id": engine.owner_id, "events": engine.events(proposal_id)}
 
+    # V2 routes must precede the frontend catch-all. Browser and service routes
+    # retain the same distinct capability/Origin checks enforced above.
+    from owner_agent.living_routes import mount_living_routes
+    mount_living_routes(app, engine)
+
     dist = Path(config.get("dist_dir", Path(__file__).resolve().parents[1] / "dist" / "owner")).resolve()
 
     @app.get("/{path:path}")

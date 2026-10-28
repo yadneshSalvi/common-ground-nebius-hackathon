@@ -52,7 +52,8 @@ class Engine:
                 raise BrokerError("Owner membership identity is invalid.")
             if owner_id in existing and existing[owner_id]["public_key"] != meta["public_key"]:
                 raise BrokerError("Owner key changed; a fresh explicit local pairing is required.")
-            owners.append({**{k: v for k, v in OWNER_INFO[owner_id].items() if k != "port"}, "url": peer["url"], "key_id": meta["key_id"], "public_key": meta["public_key"]})
+            info = OWNER_INFO.get(owner_id, {"id": owner_id, "name": meta["name"], "initials": meta["name"][:2].upper(), "role": "Registered care-circle owner", "accent": "slate"})
+            owners.append({**{k: v for k, v in info.items() if k != "port"}, "url": peer.get("browser_url", peer["url"]), "key_id": meta["key_id"], "public_key": meta["public_key"]})
         with self.store.transaction() as (state, db):
             state["owners"] = owners
 

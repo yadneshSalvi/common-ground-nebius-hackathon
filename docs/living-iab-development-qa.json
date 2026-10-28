@@ -1,0 +1,46 @@
+{
+  "status": "PASSED",
+  "scope": "Independent root agent operated actual in-app browser against isolated local services; fictional owners, no independent humans",
+  "goal_id": "care-c5e46997feef47898498",
+  "agreement_id": "agreement-a01e1bd19bb04d769e127cd1884ce9c4",
+  "date": "2026-11-04",
+  "timezone": "Asia/Kolkata",
+  "provider": "nebius",
+  "root_model_calls": 2,
+  "steps": [
+    "Asha driving excluded and requests disallowed; private memory inspected",
+    "Ravi withdrew only the return; pickup retained",
+    "All three owners explicitly reviewed and released fresh Nebius public offers",
+    "Nebius requested permission-scoped Leena return information",
+    "Leena explicitly reviewed and released return conditional on Asha receiving Dev by16:15",
+    "Nebius generated valid conditional amendment",
+    "All three owners reviewed exact responsibilities, dependencies and calendar effects",
+    "Applied approved amendment; current state ACTIVE revision2",
+    "Pickup event ID and ETag exactly match initial browser observation"
+  ],
+  "standing_policies_enabled": false,
+  "result": {
+    "revision": 2,
+    "status": "ACTIVE",
+    "calendar_inserts": 1,
+    "calendar_updates": 0,
+    "calendar_deletes": 1,
+    "pickup_event_id": "cg246f5ffaf48ef8cefadde5b645ee35ebff4b4251c",
+    "pickup_etag": "\"76718ebe0571151dde4b45a3b78cec5fbe31df38eca1932f\"",
+    "survived_restart": true,
+    "survived_final_corrected_restart": true
+  },
+  "limits": [
+    "Fictional sample; no independent household testing",
+    "Local calendar stores; no live Google OAuth"
+  ],
+  "screenshots": [
+    "screenshots/living/iab-active-nebius.png",
+    "screenshots/living/iab-asha-private-boundary.png",
+    "screenshots/living/iab-uncovered-return.png",
+    "screenshots/living/iab-final-overview.png"
+  ],
+  "runtime_image": "sha256:158a05622c008015fa67d4bd028600acb032d2caba5134efc4cdbec327c46f9c",
+  "portable_verification": "../evidence/living-iab-proof.verification.json",
+  "proof": "../evidence/living-iab-proof.json"
+}

@@ -1,0 +1,48 @@
+{
+  "kind": "Narrow authored browser regression; real local owner API and signed consent; injected state/response changes; no root runtime or providers",
+  "started_at": "2026-10-28T15:53:20.592Z",
+  "checks": [
+    {
+      "check": "Successful real signed owner consent shows exact-revision confirmation and disables repeat",
+      "passed": true,
+      "agreement_id": "agreement-84ab394c2160416883811fe5c8c82681",
+      "revision": 2
+    },
+    {
+      "check": "Injected current agreement_id change clears confirmation and requires a new review",
+      "passed": true
+    },
+    {
+      "check": "Injected current revision change clears confirmation and requires a new review",
+      "passed": true
+    },
+    {
+      "check": "Injected current agreement_digest change clears confirmation and requires a new review",
+      "passed": true
+    },
+    {
+      "check": "Injected current consent_revision change clears confirmation and requires a new review",
+      "passed": true
+    },
+    {
+      "check": "Injected current constraint_revision change clears confirmation and requires a new review",
+      "passed": true
+    },
+    {
+      "check": "Injected successful HTTP response with mismatching consent digest cannot show approval success",
+      "passed": true
+    }
+  ],
+  "network_blocked": [],
+  "errors": [],
+  "runtime_observation": {
+    "model_attempts": 0,
+    "pending_revision": 2,
+    "owner_signed_approval_present": true,
+    "transport": "In-process TestClients; no root runtime sockets"
+  },
+  "status": "PASSED",
+  "finished_at": "2026-10-28T15:53:47.289Z",
+  "source_report_sha256": "6edcd27923481db9ed5cba2cbac06bded8e7290eae8938ba7035a98bfc7861a1",
+  "reproduce": "LIVING_QA_APPROVAL=1 npm run test:living-ui"
+}

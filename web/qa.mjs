@@ -58,7 +58,9 @@ try {
   for (const id of ["broker", "asha", "ravi", "leena"]) {
     const page = await context.newPage();
     pages[id] = page;
-    await page.goto(links[id]);
+    const legacy = new URL(links[id]);
+    legacy.searchParams.set("legacy", "1");
+    await page.goto(legacy.href);
     await expect(
       page.getByRole("button", { name: "Lock workspace" }),
     ).toBeVisible();

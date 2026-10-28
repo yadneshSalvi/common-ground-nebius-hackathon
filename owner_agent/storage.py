@@ -33,6 +33,9 @@ class Vault:
               CREATE TABLE IF NOT EXISTS actions(action_id TEXT PRIMARY KEY,proposal_id TEXT NOT NULL,reservation_id TEXT NOT NULL,fence INTEGER NOT NULL,payload TEXT NOT NULL,status TEXT NOT NULL,event_id TEXT NOT NULL,etag TEXT,authorized_at TEXT,transmitted_at TEXT,verified_at TEXT,error TEXT);
               CREATE TABLE IF NOT EXISTS used_nonces(nonce TEXT PRIMARY KEY,message_id TEXT NOT NULL,proposal_id TEXT NOT NULL);
               CREATE TABLE IF NOT EXISTS outbox(message_id TEXT PRIMARY KEY,route TEXT NOT NULL,payload TEXT NOT NULL,delivered INTEGER NOT NULL DEFAULT 0);
+              CREATE TABLE IF NOT EXISTS living_reservations(reservation_id TEXT PRIMARY KEY,agreement_id TEXT NOT NULL,revision INTEGER NOT NULL,fence INTEGER UNIQUE NOT NULL,lease_expires_at TEXT NOT NULL,payload TEXT NOT NULL,status TEXT NOT NULL,UNIQUE(agreement_id,revision));
+              CREATE TABLE IF NOT EXISTS living_mutations(mutation_id TEXT PRIMARY KEY,agreement_id TEXT NOT NULL,revision INTEGER NOT NULL,reservation_id TEXT NOT NULL,fence INTEGER NOT NULL,payload TEXT NOT NULL,status TEXT NOT NULL,event_id TEXT NOT NULL,etag TEXT,authorized_at TEXT NOT NULL,transmitted_at TEXT,verified_at TEXT,error TEXT);
+              CREATE TABLE IF NOT EXISTS living_nonces(nonce TEXT PRIMARY KEY,message_id TEXT NOT NULL,agreement_id TEXT NOT NULL,revision INTEGER NOT NULL);
             ''')
         os.chmod(self.path, 0o600)
         os.chmod(key_path, 0o600)
