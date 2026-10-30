@@ -699,7 +699,8 @@ def test_distinct_goal_reservations_cannot_double_book_owner(world):
     world.setup()
     first = world.build()
     first_reservation = world.prepare("asha", first)
-    world.setup(reviewed_goal("second-same-time-goal"))
+    # The sample date moves with the clock; the second goal must overlap it.
+    world.setup(reviewed_goal("second-same-time-goal", first["goal"]["tasks"][0]["date"]))
     second = world.build(agreement_id="distinct-agreement")
     consent = world.approve("asha", second)
     response = world.service("asha", "prepare", {"agreement": second, "consent": consent})
@@ -713,7 +714,8 @@ def test_distinct_goal_cannot_ignore_existing_calendar_effects(world):
     world.setup()
     world.enact(world.build())
     before = world.local("asha").calendar.list()
-    world.setup(reviewed_goal("second-calendar-goal"))
+    # Match the moving sample date to test an actual calendar conflict.
+    world.setup(reviewed_goal("second-calendar-goal", world.goal["tasks"][0]["date"]))
     second = world.build(agreement_id="distinct-calendar-agreement")
     response = world.private("asha", "approve", {"agreement_id": second["agreement_id"], "revision": 1, "agreement_digest": agreement_digest(second)})
     assert response.status_code == 409 and "calendar effect conflicts" in response.json()["detail"]

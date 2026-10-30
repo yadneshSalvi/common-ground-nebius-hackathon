@@ -77,6 +77,10 @@ export default function LivingApp() {
     s?.planning?.status,
   );
   const hasWork = !!goal;
+  function navigate(next: string) {
+    setTab(next);
+    window.scrollTo({ top: 0 });
+  }
   return (
     <div className="cg-app">
       <a className="cg-skip" href="#main">
@@ -89,14 +93,20 @@ export default function LivingApp() {
         <nav aria-label="Main navigation">
           <button
             className={tab === "arrangement" ? "selected" : ""}
-            onClick={() => setTab("arrangement")}
+            aria-current={tab === "arrangement" ? "page" : undefined}
+            onClick={() => navigate("arrangement")}
           >
             <HeartHandshake size={17} />
             Our arrangement
           </button>
           <button
             className={tab === "record" ? "selected" : ""}
-            onClick={() => setTab("record")}
+            aria-current={tab === "record" ? "page" : undefined}
+            disabled={!hasWork}
+            title={
+              !hasWork ? "Open a care circle to view its record" : undefined
+            }
+            onClick={() => navigate("record")}
           >
             <FileCheck2 size={17} />
             The record
@@ -151,20 +161,27 @@ export default function LivingApp() {
                   <button
                     className="cg-button"
                     disabled={!!busy}
+                    onClick={() => void service.pair(true)}
+                  >
+                    Open existing care circle <ArrowRight size={18} />
+                  </button>
+                  <button
+                    className="cg-button secondary"
+                    disabled={!!busy}
                     onClick={() => void start()}
                   >
-                    Try the fictional care circle <ArrowRight size={18} />
+                    Try the fictional care circle <Plus size={17} />
                   </button>
-                  <a className="cg-text" href="?recorded=1">
-                    Inspect a recorded agreement <ArrowUpRight size={15} />
-                  </a>
                 </div>
                 <p className="cg-caption">
-                  An authored sample with Asha, Ravi, Leena and Dev.
+                  Open the saved arrangement to explore its decisions and
+                  record.
                   <br />
-                  Starting decisions are fictional. New decisions happen in each
-                  owner’s space.
+                  Or start a new authored sample with Asha, Ravi, Leena and Dev.
                 </p>
+                <a className="cg-text cg-recorded-link" href="?recorded=1">
+                  Inspect the historical v1 recording <ArrowUpRight size={15} />
+                </a>
                 <details className="cg-pair cg-sample-options">
                   <summary>
                     Optional authored sample policy · off by default
@@ -390,6 +407,13 @@ export default function LivingApp() {
                       </p>
                     </div>
                   </section>
+                  {agreement?.delta ? (
+                    <ArrangementSummary
+                      state={s}
+                      stale={stale || s.status === "HISTORICAL"}
+                      openRecord={() => navigate("record")}
+                    />
+                  ) : null}
                   {s.status === "NEEDS_HELP" ? (
                     <div className="cg-help-card">
                       <span className="cg-round-icon">
@@ -518,43 +542,6 @@ export default function LivingApp() {
                     </div>
                   </section>
                   {pending ? <Delta service={service} /> : null}
-                  {s.status === "ACTIVE" && s.agreement?.delta ? (
-                    <section className="cg-paper cg-effects-summary">
-                      <p className="cg-eyebrow">
-                        ACTUAL SELECTIVE DELTA IN THIS REVISION
-                      </p>
-                      <h3 style={{ marginTop: 12 }}>
-                        Preserved parts keep their calendar identity.
-                      </h3>
-                      <p className="cg-caption">
-                        {(s.agreement.delta.retained || []).length} retained
-                        commitments ·{" "}
-                        {
-                          (s.agreement.delta.calendar_mutations || []).filter(
-                            (m: Data) => m.kind === "insert",
-                          ).length
-                        }{" "}
-                        requested inserts ·{" "}
-                        {
-                          (s.agreement.delta.calendar_mutations || []).filter(
-                            (m: Data) => m.kind === "update",
-                          ).length
-                        }{" "}
-                        requested updates ·{" "}
-                        {
-                          (s.agreement.delta.calendar_mutations || []).filter(
-                            (m: Data) => m.kind === "delete",
-                          ).length
-                        }{" "}
-                        requested deletes. Observation outcomes remain in the
-                        record.
-                      </p>
-                      <Json
-                        value={s.agreement.delta}
-                        label="Inspect persisted delta and event identities"
-                      />
-                    </section>
-                  ) : null}
                   <section className="cg-observations">
                     <div>
                       <Clock3 size={18} />
@@ -627,8 +614,8 @@ export default function LivingApp() {
                       work. Review a new handoff, even when the clock stays the
                       same.
                     </p>
-                    <a className="cg-text" href="?legacy=1">
-                      Recorded / legacy workflow <ArrowUpRight size={14} />
+                    <a className="cg-text" href="?recorded=1">
+                      Historical v1 recording <ArrowUpRight size={14} />
                     </a>
                   </section>
                 </aside>
@@ -639,8 +626,8 @@ export default function LivingApp() {
         <footer className="cg-footer">
           <Brand />
           <span>Made for the spaces between people.</span>
-          <a href="?legacy=1">
-            Recorded / legacy workflow <ArrowUpRight size={13} />
+          <a href="?recorded=1">
+            Historical v1 recording <ArrowUpRight size={13} />
           </a>
         </footer>
       </main>
@@ -790,6 +777,104 @@ function Timeline({ state: s, stale }: { state: Data; stale: boolean }) {
         );
       })}
     </ol>
+  );
+}
+function ArrangementSummary({
+  state,
+  stale,
+  openRecord,
+}: {
+  state: Data;
+  stale: boolean;
+  openRecord: () => void;
+}) {
+  const agreement = state.agreement,
+    delta = agreement.delta,
+    mutations = list(delta.calendar_mutations),
+    commitments = list(state.commitments).filter(
+      (c) => c.status !== "withdrawn",
+    ),
+    verified = commitments.filter(
+      (c) => c.calendar_status === "VERIFIED",
+    ).length,
+    deletions = mutations.filter((m) => m.kind === "delete"),
+    cancelled = deletions.filter((m) =>
+      list(state.receipts).some(
+        (r) =>
+          r.event_id === m.event_id &&
+          r.mutation_id === m.mutation_id &&
+          r.status === "CANCELLED",
+      ),
+    ).length;
+  return (
+    <section
+      className="cg-paper cg-effects-summary"
+      aria-labelledby="change-summary-title"
+    >
+      <div className="cg-sheet-top">
+        <p className="cg-eyebrow">WHAT THIS REVISION KEPT AND CHANGED</p>
+        <Tag>
+          {stale ? "Historical" : "Saved"} revision {agreement.revision}
+        </Tag>
+      </div>
+      <h2 id="change-summary-title">Keep what works. Change what needs to.</h2>
+      <p className="cg-caption">
+        Retained commitments keep their calendar identities. A changed handoff
+        can need fresh consent even when its calendar entry stays in place.
+      </p>
+      <div
+        className="cg-delta-counts"
+        aria-label="Commitments in this revision"
+      >
+        {["retained", "changed", "new", "withdrawn"].map((kind) => (
+          <div key={kind}>
+            <strong>{list(delta[kind]).length}</strong>
+            <span>{readable(kind)}</span>
+          </div>
+        ))}
+      </div>
+      <div className="cg-effects-details">
+        <div>
+          <h3>Requested calendar changes</h3>
+          <p>
+            {mutations.filter((m) => m.kind === "insert").length} inserts ·{" "}
+            {mutations.filter((m) => m.kind === "update").length} updates ·{" "}
+            {deletions.length} deletes
+          </p>
+          <p className="cg-caption">
+            The saved revision’s intended operations.
+          </p>
+        </div>
+        <div>
+          <h3>
+            {stale
+              ? "Historical calendar observations"
+              : "Recorded calendar observations"}
+          </h3>
+          <p>
+            {verified} of {commitments.length} entries in this arrangement read
+            back as verified.
+          </p>
+          {deletions.length ? (
+            <p>
+              {cancelled} of {deletions.length} requested deletions confirmed.
+            </p>
+          ) : null}
+          <p className="cg-caption">
+            {stale
+              ? "These observations are historical; reconnect and reconcile to verify current status."
+              : "Readback confirms calendar entries, not attendance or a completed handoff."}
+          </p>
+        </div>
+      </div>
+      <button className="cg-button secondary" onClick={openRecord}>
+        <FileCheck2 size={16} /> View the record <ArrowRight size={16} />
+      </button>
+      <Json
+        value={delta}
+        label="Inspect persisted changes and event identities"
+      />
+    </section>
   );
 }
 function Delta({ service }: { service: LivingService }) {
@@ -967,30 +1052,44 @@ function Record({ service }: { service: LivingService }) {
                   {readable(r.status)}
                 </strong>
                 <p>{r.commitment_id || r.event_id}</p>
-                <small>Verified {stamp(r.verified_at)}</small>
+                <small>
+                  {r.verified_at
+                    ? `Last verified ${stamp(r.verified_at)}`
+                    : "No verification timestamp recorded"}
+                </small>
                 {r.error ? <p>{r.error}</p> : null}
               </div>
             </div>
           ))
         ) : (
-          <p>No v2 calendar readback receipts yet.</p>
+          <p>
+            No calendar readbacks are saved yet. A proposal alone creates no
+            verified entry.
+          </p>
         )}
         <h3>Planning attempts</h3>
-        {list(s.model_runs).map((r, i) => (
-          <Json
-            key={r.receipt_id || i}
-            value={r}
-            label={`${person(r.provider)} · ${readable(r.status)} · ${stamp(r.started_at || r.created_at)}`}
-          />
-        ))}
+        {list(s.model_runs).length ? (
+          list(s.model_runs).map((r, i) => (
+            <Json
+              key={r.receipt_id || i}
+              value={r}
+              label={`${person(r.provider)} · ${readable(r.status)} · ${stamp(r.started_at || r.created_at)}`}
+            />
+          ))
+        ) : (
+          <p className="cg-caption">
+            No model planning attempts are recorded. The local structured solver
+            does not call a model.
+          </p>
+        )}
         <Json value={s.history} label="Inspect persisted history" />
         <Json
           value={s.questions}
           label="Inspect invitation history across goals"
         />
         <Json value={s.agreement} label="Inspect current exact agreement" />
-        <a className="cg-text" href="?legacy=1">
-          Inspect recorded / legacy workflow <ArrowUpRight size={15} />
+        <a className="cg-text" href="?recorded=1">
+          Inspect the historical v1 recording <ArrowUpRight size={15} />
         </a>
       </section>
     </div>

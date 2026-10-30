@@ -10,6 +10,8 @@ The default interface is **living agreements v2**. The original v1 workflow and 
 
 The [independent browser record](docs/living-iab-development-qa.json) shows an actual local Nebius repair: one insert, one delete, and the retained pickup's exact event ID and ETag preserved across restart. All participants and decisions are fictional.
 
+For a short walkthrough of the saved result, see the [demo guide](docs/DEMO.md). Opening the existing care circle needs no new sample, model inference or calendar changes.
+
 ## Run the living sample
 
 Requires Node 22 and Python 3.11. Install and build both interfaces:

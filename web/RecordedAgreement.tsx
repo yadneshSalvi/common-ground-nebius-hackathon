@@ -42,8 +42,11 @@ export default function RecordedAgreement() {
     );
   return (
     <div className="cg-app">
+      <a className="cg-skip" href="#main">
+        Skip to historical record
+      </a>
       <header className="cg-header">
-        <a href="/">
+        <a href="/" aria-label="Common Ground home">
           <Brand />
         </a>
         <div className="cg-header-end">
@@ -70,10 +73,22 @@ export default function RecordedAgreement() {
         </section>
         {error ? (
           <div className="cg-notice warning" role="alert">
-            {error}
+            <div>
+              <strong>{error}</strong>
+              <p>
+                The recording is a saved file and does not need a service
+                session.
+              </p>
+              <button
+                className="cg-text"
+                onClick={() => window.location.reload()}
+              >
+                Try loading the recording again
+              </button>
+            </div>
           </div>
         ) : !content ? (
-          <div className="cg-empty">
+          <div className="cg-empty" role="status" aria-live="polite">
             <p>Loading the original recorded snapshot…</p>
           </div>
         ) : (

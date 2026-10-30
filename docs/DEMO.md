@@ -1,0 +1,13 @@
+# A short tour of the saved arrangement
+
+Use the already-running fictional installation at [127.0.0.1:4301](http://127.0.0.1:4301). This tour opens its existing result; it needs no model inference, new sample or calendar changes. If no saved arrangement exists, the room shows an empty state rather than inventing a result. See the [README](../README.md#run-the-living-sample) for setup.
+
+1. Select **Open existing care circle**. This enters the fictional shared room and reads its existing arrangement. **Try the fictional care circle** starts another authored sample; leave it alone for this tour.
+2. Read **Who’s doing what**, then the revision summary directly below it. Compare retained, changed, new and withdrawn commitments. The demonstrated repair replaced Ravi’s return with Leena’s conditional return and required Asha to review a changed handoff. Ravi’s pickup kept its event identity. The counts in the room describe the installation’s actual saved revision.
+3. Compare **Requested calendar changes** with **Recorded calendar observations**. Requests describe intended operations; readback receipts describe what was observed. Expand a responsibility’s **Calendar identity** to inspect its event ID and ETag. Historical or unconfirmed status stays labeled as such.
+4. Select **View the record**. Inspect calendar receipt statuses, planning attempts and the current exact agreement. **Download sanitized record** and **Download offline verifier** export the existing evidence without calling a model. The verifier requires Python, `cryptography` and `rfc8785`; the [README](../README.md#evidence-and-validation) explains how to run it.
+5. Select **Historical v1 recording** in the footer for the separate, credential-free [original recording](http://127.0.0.1:4301/?recorded=1). It is explicitly historical and expired, and does not authorize the living v2 arrangement. Use **Back to Common Ground** to return.
+
+The recorded repair has one requested insert and one requested delete; its [existing browser evidence](living-iab-development-qa.json) records the retained pickup’s unchanged event ID and ETag. This is an authored fictional demonstration with real local SQLite calendar effects and recorded provider attempts. It is not a real household, a live Google Calendar integration, or evidence that anyone arrived or completed a handoff. Opening the saved result does not rerun the provider validation.
+
+For this tour, leave **New shared goal**, planning, reconciliation, owner decisions and **Apply approved changes** untouched. Those controls continue the workflow described in the [README](../README.md#try-an-arrangement-that-changes).
