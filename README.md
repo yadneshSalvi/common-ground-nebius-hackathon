@@ -1,5 +1,7 @@
 # Common Ground
 
+**Submission demo:** [Watch on YouTube](https://www.youtube.com/watch?v=Jb6DXYu0jIc).
+
 **Make a plan together. Keep your private reasons yours.**
 
 Common Ground is a local, fictional demonstration of a care arrangement that can change without discarding everything that still works. The shared room shows reviewed responsibilities, handoffs and calendar observations. Each person releases offers, keeps private structured memory, and makes exact decisions in a separate owner service.
